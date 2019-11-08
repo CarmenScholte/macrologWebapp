@@ -1,6 +1,6 @@
 @import "../../../../css/variables.scss";
 
-.about {
-  background-image: $backgroundGradient;
-  color: white;
+.photo-wrapper {
+  display: flex;
+  width: 768px;
 }

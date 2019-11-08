@@ -6,9 +6,10 @@
 	<div class="connectivity__info" *ngIf="!isConnected()">
 		<p class="connectivity__info__text">Get your activities from Strava automatically added to Macrolog!</p>
 
-		<p class="connectivity__info__text">No need to manually add activities when they already have been registered in Strava!</p>
+		<p class="connectivity__info__text">No need to manually add activities when they already have been registered in
+			Strava!</p>
 
-		<p class="strong--warning" *ngIf="syncError">Unable to proceed with connecting to Strava.	{{syncError}}</p>
+		<p class="is-warning" *ngIf="syncError">Unable to proceed with connecting to Strava. {{syncError}}</p>
 	</div>
 
 	<div class="connectivity__connection" *ngIf="!isConnected()">
@@ -22,7 +23,8 @@
 
 		<p class="connectivity__info__text">The activities from Strava will be automatically added to Macrolog.</p>
 
-		<p class="connectivity__info__text">Number of activities synced with Strava: {{connection.numberActivitiesSynced}}</p>
+		<p class="connectivity__info__text">Number of activities synced with Strava: {{connection.numberActivitiesSynced}}
+		</p>
 	</div>
 
 	<div class="connectivity__connection" *ngIf="isConnected()">

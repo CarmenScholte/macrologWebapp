@@ -1,46 +1,45 @@
-.primary {
+@import "./variables.scss";
+
+// color shortcuts
+.primary,
+.is-primary {
   color: $primary;
 }
 
-.secondary {
+.secondary,
+.is-secondary {
   color: $secondary;
 }
 
-.title-wrapper {
-  display: flex;
-  justify-content: flex-start;
-
-  &--center {
-    justify-content: center;
-  }
+.warning,
+.is-warning {
+  color: $warning;
 }
 
-.strong {
-  &--primary {
-    color: $primary;
-  }
-
-  &--secondary {
-    color: $secondary;
-  }
-
-  &--warning {
-    color: $warning;
-  }
-}
-
-.svg-wrapper {
-  width: 100px;
-}
-
+// layout shortcuts
 .is-relative {
   position: relative;
 }
 
 .is-centered {
+  display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+.flx-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flx-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.mg-auto {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .minh-vh {

@@ -24,7 +24,7 @@
 
 	<div class="mail__info" *ngIf="!isConnected">
 		<div class="mail__info__status">GMail is not connected.
-			<p class="strong--warning" *ngIf="syncError">Unable to proceed with connecting to GMAIL. {{syncError}}</p>
+			<p class="is-warning" *ngIf="syncError">Unable to proceed with connecting to GMAIL. {{syncError}}</p>
 		</div>
 
 		<div class="mail__info__details">

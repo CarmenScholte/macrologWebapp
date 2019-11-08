@@ -9,6 +9,10 @@ $menuWidth: 200px;
   width: 100vw;
 }
 
+.svg-wrapper {
+  width: 100px;
+}
+
 .menu {
   @media (min-width: $tablet) {
     background: $whiteVerticalGradient;
