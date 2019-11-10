@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
 	public forgotError: string;
 
 	public showForgotPwModal = false;
+	public menuToggle = false;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -100,5 +101,9 @@ export class LoginComponent implements OnInit {
 				() => {
 					this.forgotError = 'The email adress was not found';
 				});
+	}
+
+	public toggleMenu() {
+		this.menuToggle = !this.menuToggle;
 	}
 }
