@@ -7,6 +7,9 @@
   min-width: 100px;
 }
 
+.navbar {
+  box-shadow: 0 0 5px #dddddd;
+}
 .navbar-burger span {
   background-color: $secondary;
   height: 2px;
@@ -58,5 +61,5 @@
 }
 
 nav.is-fixed-top + section {
-  margin-top: 55px;
+  margin-top: 52px;
 }

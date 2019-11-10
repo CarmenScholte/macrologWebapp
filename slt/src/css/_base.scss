@@ -16,6 +16,19 @@
   color: $warning;
 }
 
+.bg-white {
+  background-color: white;
+}
+
+.bg-light-grad {
+  background-image: linear-gradient(to bottom, #d1d9f2, #b1dcf2);
+}
+
+.bg-blue-grad {
+  background-image: $backgroundGradient;
+  color: white;
+}
+
 // layout shortcuts
 .is-relative {
   position: relative;
