@@ -3,7 +3,6 @@ import { DatePipe } from '@angular/common';
 import { LogActivity } from '../../model/logActivity';
 import { StoreActivityRequest } from '../../model/storeActivityRequest';
 import { ActivityService } from '../../services/activity.service';
-import { ToastService } from '../../services/toast.service';
 
 @Component({
 	selector: 'log-activity',

@@ -1,7 +1,7 @@
 // Import angular material custom theme
 @import "theme";
 
-// Define variables 
+// Define variables
 @import "variables";
 
 $family-primary: "Assistant", sans-serif;
@@ -32,8 +32,8 @@ $family-primary: "Assistant", sans-serif;
 @import "macro-box";
 @import "main-backdrop";
 @import "modal";
+@import "navbar";
 @import "search-bar";
 @import "select";
 @import "settings";
 @import "tabs";
-

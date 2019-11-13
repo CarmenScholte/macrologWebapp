@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '@app/services/user.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of, throwError } from 'rxjs';
+import { AlertService } from '@app/services/alert.service';
 
 describe('CalculateIntakeModalComponent', () => {
   let component: CalculateIntakeModalComponent;
@@ -14,7 +15,7 @@ describe('CalculateIntakeModalComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [CalculateIntakeModalComponent],
-      providers: [UserService],
+      providers: [UserService, AlertService],
       imports: [FormsModule, HttpClientTestingModule],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
     })

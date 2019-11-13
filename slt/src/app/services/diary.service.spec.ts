@@ -2,8 +2,8 @@ import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DiaryService } from './diary.service';
 import { LogEntry } from '@app/model/logEntry';
-import { ToastService } from './toast.service';
 import { StoreLogRequest } from '@app/model/storeLogRequest';
+import { AlertService } from './alert.service';
 
 describe('DiaryService', () => {
     let service: DiaryService;
@@ -12,7 +12,7 @@ describe('DiaryService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [DiaryService, ToastService]
+            providers: [DiaryService, AlertService]
         });
         service = TestBed.get(DiaryService);
         http = TestBed.get(HttpTestingController);

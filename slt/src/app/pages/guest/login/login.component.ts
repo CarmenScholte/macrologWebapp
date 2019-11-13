@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../../services/auth.service';
-import { ToastService } from '../../../services/toast.service';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { AlertService } from '@app/services/alert.service';
 
 @Component({
 	templateUrl: 'login.component.html',
 	animations: [
 		trigger('enterLeaveTrigger', [
 			transition(':enter', [
-				style({ opacity: 0, marginTop: '15px' }),
-				animate('0.3s', style({ opacity: 1, marginTop: '0' })),
+				style({ transform: 'translateY(15px)' }),
+				animate('300ms', style({ transform: 'translateY(0px)' }))
 			]),
 		]),
 	],
@@ -33,12 +33,14 @@ export class LoginComponent implements OnInit {
 	public forgotError: string;
 
 	public showForgotPwModal = false;
+	public menuToggle = false;
+
 
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
 		private authService: AuthenticationService,
-		private toastService: ToastService) { }
+		private alertService: AlertService) { }
 
 	ngOnInit() {
 		this.authService.logout();
@@ -94,11 +96,15 @@ export class LoginComponent implements OnInit {
 		this.authService.resetPassword(this.forgotEmail)
 			.subscribe(
 				() => {
-					this.toastService.setMessage('We have send an email with your password!');
+					this.alertService.setAlert('We have send an email with your password!', false);
 					this.toggleForgotPwModal(false);
 				},
 				() => {
 					this.forgotError = 'The email adress was not found';
 				});
 	}
+
+	public toggleMenu() {
+		this.menuToggle = !this.menuToggle;
+	}	
 }

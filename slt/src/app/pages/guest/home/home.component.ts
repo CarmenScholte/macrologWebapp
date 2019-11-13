@@ -6,17 +6,14 @@ import { AuthenticationService } from '@app/services/auth.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
-  public menuToggle = false;
+  public showMenu = false;
 
   constructor(private authService: AuthenticationService) { }
 
-  ngOnInit() {
-  }
-
   public toggleMenu() {
-    this.menuToggle = !this.menuToggle;
+    this.showMenu = !this.showMenu;
   }
 
   public isLoggedIn() {

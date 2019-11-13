@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ToastService } from './toast.service';
 import { Weight } from '../model/weight';
 import { environment } from '../../environments/environment';
+import { AlertService } from './alert.service';
 
 @Injectable()
 export class WeightService {
@@ -11,7 +11,7 @@ export class WeightService {
 	activities = new Array();
 
 	constructor(private http: HttpClient,
-		private toastService: ToastService) {
+		private alertService: AlertService) {
 	}
 
 	public getAllWeights() {
@@ -30,11 +30,11 @@ export class WeightService {
 		const options = { headers: headers };
 		return this.http.post<Weight>(this.macrologBackendUrl + '/', logWeight, options).subscribe(
 			() => {
-				this.toastService.setMessage('Your weight has been saved!');
+				this.alertService.setAlert('Your weight has been saved succesfully!', false);
 				callBack();
 			},
-			() => {
-				this.toastService.setMessage('Your weight could not be saved!');
+			error => {
+				this.alertService.setAlert('Could not save weight: ' + error.error, true);
 			});
 	}
 
@@ -48,10 +48,11 @@ export class WeightService {
 
 		return this.http.delete<number>(this.macrologBackendUrl + '/' + logWeight.id, options).subscribe(
 			() => {
+				this.alertService.setAlert('Your weight measurement was deleted succesfully!', false);
 				callBack();
 			},
-			() => {
-				this.toastService.setMessage('Your weight measurement could not be deleted!');
+			error => {
+				this.alertService.setAlert('Could not delete weight measurement: ' + error.error, true);
 			});
 	}
 }

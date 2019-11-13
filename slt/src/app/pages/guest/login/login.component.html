@@ -1,86 +1,101 @@
-<div class="login-page">
-  <div class="menu">
-    <div routerLink="/">
-      <div class="menu__logo">
-        <p class="menu__logo__text">M</p>
+<div class="login minh-vh">
+  <nav class="navbar is-fixed-top">
+    <div class="container container--flex">
+      <div class="navbar-brand">
+        <div class="navbar-item" routerLink="/">
+          <div class="brand-wrapper">
+            <img src="assets/logo-m.png" aria-label="M">
+          </div>
+        </div>
+
+        <a role="button" class="navbar-burger" aria-label="hamburger-menu" aria-expanded="false" (click)="toggleMenu()">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
 
-      <div class="menu__title">
-        <p>Macrolog</p>
-      </div>
-    </div>
-
-    <div class="menu__item">
-      <div matRipple class="menu__item__text menu__item__text--active" id="login"
-        routerLink="/login">Log in</div>
-    </div>
-
-    <div class="menu__item">
-      <div matRipple class="menu__item__text" id="about"
-        routerLink="/about">About</div>
-    </div>
-  </div>
-
-  <div class="content">
-    <div @enterLeaveTrigger class="content__forms">
-      <div class="content__form content__form--login">
-        <h3 class="content__form__title">Log in</h3>
-
-        <form #loginForm="ngForm">
-          <mat-form-field>
-            <input matInput placeholder="Username or email" type="text" #usernameField [(ngModel)]="usernameOrEmail"
-              name="usernameOrEmail" required />
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput placeholder="Password" type="password" #passwordField [(ngModel)]="password"
-              (keyup.enter)="login()" name="password" required />
-          </mat-form-field>
-
-          <p class="content__form__error" *ngIf="loginError">{{loginError}}</p>
-
-          <a id="forgotLink" class="content__form__link" (click)="toggleForgotPwModal(true)">Forgot password?</a>
-        </form>
-
-        <button id="loginBtn" class="content__form__button button button--white is-wide" [disabled]="loginForm.invalid"
-          (click)="login()">Log in
-        </button>
+      <div class="navbar-mobile-menu" [ngClass]="{ 'is-visible' : menuToggle }">
+        <div class="navbar-mobile-item" routerLink="/about">About</div>
+        <div class="navbar-mobile-item" routerLink="/login">Log in</div>
       </div>
 
-      <div class="content__form content__form--register">
-        <h3 class="content__form__title">Register</h3>
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <div class="navbar-item" routerLink="/about">About</div>
+        </div>
 
-        <form #registerForm="ngForm">
-          <mat-form-field>
-            <input matInput placeholder="Username" type="text" #usernameField [(ngModel)]="newUsername"
-              name="newUsername" required />
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput placeholder="Email" type="email" #emailField [(ngModel)]="newEmail" name="newEmail"
-              required />
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput placeholder="Password" type="password" #passwordField [(ngModel)]="newPassword"
-              name="newPassword" required (keyup.enter)="register()" />
-          </mat-form-field>
-
-          <label class="content__form__label">
-            We hate spam as much as you do. We will send you a confirmation
-            email and will not use your email address
-            for anything else besides password retrieval.
-          </label>
-
-          <p class="content__form__error" *ngIf="registerError">{{registerError}}</p>
-        </form>
-
-        <button id="registerBtn" class="content__form__button button button--white is-wide"
-          [disabled]="registerForm.invalid" (click)="register()">Register
-        </button>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <button class="button button--primary" routerLink="/login">Log in</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </nav>
+
+  <section class="section">
+    <div class="container">
+      <div @enterLeaveTrigger class="content__forms">
+        <div class="content__form content__form--login">
+          <h3 class="content__form__title">Log in</h3>
+
+          <form #loginForm="ngForm">
+            <mat-form-field>
+              <input matInput placeholder="Username or email" type="text" #usernameField [(ngModel)]="usernameOrEmail"
+                name="usernameOrEmail" required />
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Password" type="password" #passwordField [(ngModel)]="password"
+                (keyup.enter)="login()" name="password" required />
+            </mat-form-field>
+
+            <p class="content__form__error" *ngIf="loginError">{{loginError}}</p>
+
+            <a id="forgotLink" class="content__form__link" (click)="toggleForgotPwModal(true)">Forgot password?</a>
+          </form>
+
+          <button id="loginBtn" class="content__form__button button button--white is-wide"
+            [disabled]="loginForm.invalid" (click)="login()">Log in
+          </button>
+        </div>
+
+        <div class="content__form content__form--register">
+          <h3 class="content__form__title">Register</h3>
+
+          <form #registerForm="ngForm">
+            <mat-form-field>
+              <input matInput placeholder="Username" type="text" #usernameField [(ngModel)]="newUsername"
+                name="newUsername" required />
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Email" type="email" #emailField [(ngModel)]="newEmail" name="newEmail"
+                required />
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Password" type="password" #passwordField [(ngModel)]="newPassword"
+                name="newPassword" required (keyup.enter)="register()" />
+            </mat-form-field>
+
+            <label class="content__form__label">
+              We hate spam as much as you do. We will send you a confirmation
+              email and will not use your email address
+              for anything else besides password retrieval.
+            </label>
+
+            <p class="content__form__error" *ngIf="registerError">{{registerError}}</p>
+          </form>
+
+          <button id="registerBtn" class="content__form__button button button--white is-wide"
+            [disabled]="registerForm.invalid" (click)="register()">Register
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <div @enterLeaveTrigger class="modal-wrapper" *ngIf="showForgotPwModal">
     <div class="modal blue-theme">

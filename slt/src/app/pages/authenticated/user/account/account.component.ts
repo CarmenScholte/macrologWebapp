@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from '../../../../services/auth.service';
-import { ToastService } from '../../../../services/toast.service';
 import { Router } from '@angular/router';
+import { AlertService } from '@app/services/alert.service';
 
 @Component({
 	selector: 'account',
@@ -18,7 +18,7 @@ export class AccountComponent {
 	public errorMessage: string;
 
 	constructor(private authService: AuthenticationService,
-		private toastService: ToastService,
+		private alertService: AlertService,
 		private router: Router) {
 	}
 
@@ -31,7 +31,7 @@ export class AccountComponent {
 				.subscribe(
 					data => {
 						if (data.status === 200) {
-							this.toastService.setMessage('Your password has changed');
+							this.alertService.setAlert('Your password was changed successfully!', false);
 							this.oldPassword = '';
 							this.newPassword = '';
 							this.confirmPassword = '';
@@ -42,6 +42,8 @@ export class AccountComponent {
 							this.message = 'The confirmation password does not match with the new password.';
 						} else if (error.status === 401) {
 							this.message = 'Password invalid';
+						} else {
+							this.alertService.setAlert('Could not change password: ' + error.error, true);
 						}
 					});
 		}
@@ -53,11 +55,11 @@ export class AccountComponent {
 				localStorage.clear();
 				this.router.navigate(['/']);
 			},
-			err => {
-				if (err.status === 401) {
+			error => {
+				if (error.status === 401) {
 					this.errorMessage = 'Password is incorrect';
 				} else {
-					// TODO
+					this.alertService.setAlert('Could not delete account: ' + error.error, true);
 				}
 			}
 		);

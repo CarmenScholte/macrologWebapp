@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GoogleService } from '@app/services/google.service';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
+import { AlertService } from '@app/services/alert.service';
 
 @Component({
   selector: 'app-mail',
@@ -21,6 +22,7 @@ export class MailComponent implements OnInit {
   private scope: string;
 
   constructor(private googleService: GoogleService,
+    private alertService: AlertService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -43,8 +45,8 @@ export class MailComponent implements OnInit {
           this.checkRegistrationResponse();
         }
       },
-      () => {
-        // TODO handle error
+      err => {
+        this.alertService.setAlert(err.error, true);
       }
     );
   }
@@ -69,6 +71,9 @@ export class MailComponent implements OnInit {
     this.googleService.storeMailSyncSettings(this.code).subscribe(
       () => {
         this.isConnected = true;
+      },
+      err => {
+        this.alertService.setAlert(err.error, true);
       });
   }
   private setGoogleUrl() {
@@ -77,13 +82,15 @@ export class MailComponent implements OnInit {
     this.googleConnectUrl = googleUrl + '&client_id=' + this.clientId + '&redirect_uri=' + redirectUrl;
   }
 
-  private sendTestMail() {
+  public sendTestMail() {
     this.mailSend = false;
     this.googleService.sendTestMail(this.emailAddress).subscribe(
       () => {
-        // TODO use alert/toaster
-        this.mailSend = true;
-        this.emailAddress = null;
+        this.alertService.setAlert('Email has been sent!', false);
+        this.emailAddress = '';
+      },
+      err => {
+        this.alertService.setAlert(err.error, true);
       });
   }
 }

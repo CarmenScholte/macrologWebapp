@@ -2,8 +2,8 @@ import { async, TestBed, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LogActivityComponent } from './log-activity.component';
-import { ToastService } from '../../services/toast.service';
 import { ActivityService } from '../../services/activity.service';
+import { AlertService } from '@app/services/alert.service';
 
 describe('LogActivityComponent', () => {
   let component: LogActivityComponent;
@@ -13,7 +13,7 @@ describe('LogActivityComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [LogActivityComponent],
-      providers: [ActivityService, ToastService],
+      providers: [ActivityService, AlertService],
       imports: [HttpClientTestingModule],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();

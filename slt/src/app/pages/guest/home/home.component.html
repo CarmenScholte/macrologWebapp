@@ -1,250 +1,255 @@
-<nav class="navbar is-fixed-top">
-  <div class="container container--flex">
-    <div class="navbar-brand">
-      <div class="navbar-item">
-        <div class="logo">M</div>
-      </div>
-
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" (click)="toggleMenu()">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-
-    <div class="navbar-mobile-menu" [ngClass]="{ 'is-visible' : menuToggle }">
-      <div class="navbar-mobile-item" routerLink="/about">About</div>
-      <div *ngIf="isLoggedIn()" class="navbar-mobile-item" routerLink="/log">Diary</div>
-      <div *ngIf="!isLoggedIn()" class="navbar-mobile-item" routerLink="/login">Log in</div>
-      <div *ngIf="!isLoggedIn()" class="navbar-mobile-item" routerLink="/login">Register</div>
-    </div>
-
-    <div class="navbar-menu">
-      <div class="navbar-start">
-        <div class="navbar-item" routerLink="/about">About</div>
-      </div>
-
-      <div class="navbar-end">
-        <div *ngIf="isLoggedIn()" class="navbar-item">
-          <button class="button button--primary" routerLink="/log">Diary</button>
+<div class="minh-vh">
+  <nav class="navbar is-fixed-top">
+    <div class="container container--flex">
+      <div class="navbar-brand">
+        <div class="navbar-item">
+          <div class="brand-wrapper">
+            <img src="assets/logo-m.png" aria-label="M">
+          </div>
         </div>
 
-        <div *ngIf="!isLoggedIn()" class="navbar-item">
-          <button class="button button--primary" routerLink="/login">Log in</button>
+        <a role="button" class="navbar-burger" aria-label="hamburger-menu" aria-expanded="false" (click)="toggleMenu()">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div class="navbar-mobile-menu" [ngClass]="{ 'is-visible' : showMenu }">
+        <div class="navbar-mobile-item" routerLink="/about">About</div>
+        <div class="navbar-mobile-item" routerLink="/login">Log in</div>
+      </div>
+
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <div class="navbar-item" routerLink="/about">About</div>
         </div>
 
-        <div *ngIf="!isLoggedIn()" class="navbar-item">
-          <button class="button button--primary" routerLink="/login">Register</button>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <button class="button button--primary" routerLink="/login">Log in</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<section class="section intro is-relative">
-  <div class="container">
-    <div class="split">
-      <div class="split__left">
-        <h1 class="title">Macrolog</h1>
+  <section class="section intro is-relative">
+    <div class="container">
+      <div class="split">
+        <div class="split__left">
+          <h1 class="title">Macrolog</h1>
 
-        <h1 class="subtitle">The cleanest tool for tracking macronutrients</h1>
+          <h1 class="subtitle">The cleanest tool for tracking macronutrients</h1>
 
-        <a href="https://play.google.com/store/apps/details?id=com.csl.macrologandroid" target="_blank"
-          class="button button--primary button--large">Download now <em class="button-icon fab fa-google-play"></em></a>
-      </div>
-
-      <div class="split__right">
-        <div class="phone-image">
-          <img class="phone-image__fill" alt="diary screenshot" src="assets/diary-screen.jpg">
-
-          <img class="phone-image__frame" alt="phone frame" src="assets/phone-mock-empty.png">
+          <a href="https://play.google.com/store/apps/details?id=com.csl.macrologandroid" target="_blank"
+            class="button button--primary button--large">Download now <em
+              class="button-icon fab fa-google-play"></em></a>
         </div>
-      </div>
-    </div>
 
-  </div>
-</section>
+        <div class="split__right">
+          <div class="phone-image">
+            <img class="phone-image__fill" alt="diary screenshot" src="assets/diary-screen.jpg">
 
-<section class="section one">
-  <div class="container">
-    <div class="tile is-ancestor">
-      <div class="tile is-parent is-vertical is-9">
-        <h1 class="title">Track all the things</h1>
-
-        <p>
-          Whatever your goal is, the bottom line in changing your body is simple. To lose weight you consume less energy
-          than you burn, and to gain weight you eat more than you burn. How do you know what you're doing is effective?
-          Track it! Track your methods, track your progress, track all the things. Macrolog can help you keep an
-          overview of the food you eat, your activities and your progress in terms of
-          weight. The purpose is to collect data, and see what works for you.
-        </p>
-
-        <h2 class="subtitle">Macronutrients</h2>
-        <p>
-          Part of tracking everything is also tracking the proportions in which you eat. Macrolog, as the name suggests,
-          is more focussed on tracking macronutrients rather than just calories. We won't pretend to know much about
-          dieting itself, and what works for one person may not work for another. But we know proteins do something else
-          to your body than fat does, and fat acts differently from carbohydrates. Not tracking macronutrients would be
-          neglecting data that could play a huge role in accomplishing your physical goal. It should be the basis rather
-          than an extra feature.
-        </p>
-      </div>
-
-      <div class="tile is-parent is-centered">
-        <em class="large-icon fas fa-list-alt"></em>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section two">
-  <div class="container">
-    <div class="tile is-ancestor">
-      <div class="tile is-parent is-centered is-3">
-        <em class="large-icon fas fa-hourglass-half"></em>
-      </div>
-
-      <div class="tile is-parent is-vertical">
-        <h1 class="title">Simple and quick...</h1>
-
-        <p>
-          We think time spend tracking food is time you're not spending on the things you love. Logging food should
-          therefore be as easy and quick as possible, without getting inaccurate. Macrolog will help you with this, but
-          how?
-        </p>
-
-        <h2 class="subtitle">Just your products</h2>
-        <p>
-          First off, Macrolog's food list only contains products that you personally use. Other apps are hooked up to
-          large
-          databases where other users can add to. This sometimes clutters the list and it can be hard to pick the right
-          product. Have you ever tried to find the right type of bread amongst the 100 types to pick from? Macrolog's
-          list
-          starts out empty, and grows over time while you add entries to your diary. You will never be overwhelmed by
-          the
-          amount of products to pick from. It's just your favorite foods.
-        </p>
-
-        <h2 class="subtitle">Portions</h2>
-        <p>
-          Second, Macrolog lets you define portions for your products. If you always have the same amount of oats for
-          breakfast, you're only gonna enter that quantity once. You can add multiple portions to every food, in case
-          you
-          eat varying amounts. This speeds up adding food to your diary.
-        </p>
-
-        <h2 class="subtitle">Dishes</h2>
-        <p>
-          But we didn't stop there.
-          If you always have the same amount of oats, yogurt and honey every morning, you're only gonna want to enter
-          one thing, your breakfast. This is why Macrolog enables you to define dishes and add all the ingredients at
-          once. These ingredient amounts are then fully adjustable, just in case you needed an extra spoon of honey.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section three">
-  <div class="container">
-    <div class="tile is-ancestor">
-      <div class="tile is-parent is-vertical is-9">
-        <h1 class="title">... and complex and dynamic</h1>
-
-        <p>
-          While the logging must be as simple and easy as possible, the things we want to do with the data are more
-          complex. It's nice to see if you reach your daily goals, but you also might want to look at your weekly,
-          monthly, or even yearly accomplishments. If you track your eating and exercising habbits for a longer period
-          of time you are able to make predictions for the future, should you stick with it. Macrolog offers tools to
-          make these aspects visible to you.
-        </p>
-
-        <h2 class="subtitle">Dynamically adjusting goals</h2>
-        <p>
-          When your body changes, your need for energy changes. When you weigh less, you also need less energy daily.
-          And when you've bulked up, you need more energy to sustain that amount of muscle. Macrolog enables you to
-          automatically adjust your daily intake goal based on your new physique. This prevents plateauing, which is
-          something many people eventually experience when they don't adjust their eating habbits to their new bodily
-          needs.
-        </p>
-      </div>
-      <div class="tile is-parent is-centered">
-        <em class="large-icon fas fa-chart-bar"></em>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section four">
-  <div class="container">
-    <h1 class="title has-shadow">When is Macrolog for you?</h1>
-
-    <p class="has-background">When you value macronutrients over calories. When you want things clear and simple.
-      When you know what you want to eat. When you don't need advice. When you want something other than just losing
-      weight. When you like analyzing your data. When you like full control.
-    </p>
-
-    <div class="tile is-ancestor">
-      <div class="tile is-parent">
-        <div class="tile is-child has-background">
-          <h2 class="subtitle is-centered">Macrolog</h2>
-          <ul>
-            <li><em class="small-icon fas fa-plus"></em>Adjustable macronutrient focus</li>
-            <li><em class="small-icon fas fa-plus"></em>Able to focus on all goals</li>
-            <li><em class="small-icon fas fa-plus"></em>Clean database with only your products</li>
-            <li><em class="small-icon fas fa-plus"></em>Multiple portions for food</li>
-            <li><em class="small-icon fas fa-plus"></em>Including dishes</li>
-            <li><em class="small-icon fas fa-plus"></em>Logging takes less and less time</li>
-            <li><em class="small-icon fas fa-plus"></em>All functions are free</li>
-          </ul>
-
-          <ul>
-            <li><em class="small-icon fas fa-minus"></em>Initial filling the foodlist takes time</li>
-            <li><em class="small-icon fas fa-minus"></em>No nutritional advice</li>
-          </ul>
+            <img class="phone-image__frame" alt="phone frame" src="assets/phone-mock-empty.png">
+          </div>
         </div>
       </div>
 
-      <div class="tile is-parent">
-        <div class="tile is-child has-background">
-          <h2 class="subtitle is-centered">Most other apps</h2>
+    </div>
+  </section>
 
-          <ul>
-            <li><em class="small-icon fas fa-plus"></em>Calorie focus and traditional macronutrient ratios</li>
-            <li><em class="small-icon fas fa-plus"></em>Rich database to pick from</li>
-            <li><em class="small-icon fas fa-plus"></em>No looking up nutritional facts</li>
-            <li><em class="small-icon fas fa-plus"></em>Nutritional advice</li>
-            <li><em class="small-icon fas fa-plus"></em>Suggested recipes</li>
-          </ul>
+  <section class="section one">
+    <div class="container">
+      <div class="tile is-ancestor">
+        <div class="tile is-parent is-vertical is-9">
+          <h1 class="title">Track all the things</h1>
 
-          <ul>
-            <li><em class="small-icon fas fa-minus"></em>Often focus on weightloss</li>
-            <li><em class="small-icon fas fa-minus"></em>High chance picking wrong product</li>
-            <li><em class="small-icon fas fa-minus"></em>Amount of time logging stays the same</li>
-            <li><em class="small-icon fas fa-minus"></em>Most useful functions are premium</li>
-          </ul>
+          <p>
+            Whatever your goal is, the bottom line in changing your body is simple. To lose weight you consume less
+            energy
+            than you burn, and to gain weight you eat more than you burn. How do you know what you're doing is
+            effective?
+            Track it! Track your methods, track your progress, track all the things. Macrolog can help you keep an
+            overview of the food you eat, your activities and your progress in terms of
+            weight. The purpose is to collect data, and see what works for you.
+          </p>
+
+          <h2 class="subtitle">Macronutrients</h2>
+          <p>
+            Part of tracking everything is also tracking the proportions in which you eat. Macrolog, as the name
+            suggests,
+            is more focussed on tracking macronutrients rather than just calories. We won't pretend to know much about
+            dieting itself, and what works for one person may not work for another. But we know proteins do something
+            else
+            to your body than fat does, and fat acts differently from carbohydrates. Not tracking macronutrients would
+            be
+            neglecting data that could play a huge role in accomplishing your physical goal. It should be the basis
+            rather
+            than an extra feature.
+          </p>
+        </div>
+
+        <div class="tile is-parent is-centered">
+          <em class="large-icon fas fa-list-alt"></em>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="section five">
-  <div class="container">
-    <h1 class="title">Soon</h1>
+  <section class="section two">
+    <div class="container">
+      <div class="tile is-ancestor">
+        <div class="tile is-parent is-centered is-3">
+          <em class="large-icon fas fa-hourglass-half"></em>
+        </div>
 
-    <h2 class="subtitle">Meal plans</h2>
-    <p>We have talked about portions and meals to make logging your food intake easier. But we feel we can still make an
-      extra step towards easy entering: meal plans. Macrolog will soon be able to save your weekly meal
-      plans, and add the content to your diary automatically every day. This way you only have to log the variations of
-      the day.
-    </p>
+        <div class="tile is-parent is-vertical">
+          <h1 class="title">Simple and quick...</h1>
 
-    <h2 class="subtitle">Bodyfat and measurements</h2>
-    <p>
-      We would like Macrolog to be a tool not just for weightloss, but for attaining any physical goal. But changing
-      your body composition isnt usually measured in weight, loss or gain. This is why we are adding more types of
-      measurements to track your progress, like body fat percentage and bodily measurements.
-    </p>
-  </div>
-</section>
+          <p>
+            We think time spend tracking food is time you're not spending on the things you love. Logging food should
+            therefore be as easy and quick as possible, without getting inaccurate. Macrolog will help you with this,
+            but
+            how?
+          </p>
+
+          <h2 class="subtitle">Just your products</h2>
+          <p>
+            First off, Macrolog's food list only contains products that you personally use. Other apps are hooked up to
+            large
+            databases where other users can add to. This sometimes clutters the list and it can be hard to pick the
+            right
+            product. Have you ever tried to find the right type of bread amongst the 100 types to pick from? Macrolog's
+            list
+            starts out empty, and grows over time while you add entries to your diary. You will never be overwhelmed by
+            the
+            amount of products to pick from. It's just your favorite foods.
+          </p>
+
+          <h2 class="subtitle">Portions</h2>
+          <p>
+            Second, Macrolog lets you define portions for your products. If you always have the same amount of oats for
+            breakfast, you're only gonna enter that quantity once. You can add multiple portions to every food, in case
+            you
+            eat varying amounts. This speeds up adding food to your diary.
+          </p>
+
+          <h2 class="subtitle">Dishes</h2>
+          <p>
+            But we didn't stop there.
+            If you always have the same amount of oats, yogurt and honey every morning, you're only gonna want to enter
+            one thing, your breakfast. This is why Macrolog enables you to define dishes and add all the ingredients at
+            once. These ingredient amounts are then fully adjustable, just in case you needed an extra spoon of honey.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section three">
+    <div class="container">
+      <div class="tile is-ancestor">
+        <div class="tile is-parent is-vertical is-9">
+          <h1 class="title">... and complex and dynamic</h1>
+
+          <p>
+            While the logging must be as simple and easy as possible, the things we want to do with the data are more
+            complex. It's nice to see if you reach your daily goals, but you also might want to look at your weekly,
+            monthly, or even yearly accomplishments. If you track your eating and exercising habbits for a longer period
+            of time you are able to make predictions for the future, should you stick with it. Macrolog offers tools to
+            make these aspects visible to you.
+          </p>
+
+          <h2 class="subtitle">Dynamically adjusting goals</h2>
+          <p>
+            When your body changes, your need for energy changes. When you weigh less, you also need less energy daily.
+            And when you've bulked up, you need more energy to sustain that amount of muscle. Macrolog enables you to
+            automatically adjust your daily intake goal based on your new physique. This prevents plateauing, which is
+            something many people eventually experience when they don't adjust their eating habbits to their new bodily
+            needs.
+          </p>
+        </div>
+        <div class="tile is-parent is-centered">
+          <em class="large-icon fas fa-chart-bar"></em>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section four">
+    <div class="container">
+      <h1 class="title has-shadow">When is Macrolog for you?</h1>
+
+      <p class="has-background">When you value macronutrients over calories. When you want things clear and simple.
+        When you know what you want to eat. When you don't need advice. When you want something other than just losing
+        weight. When you like analyzing your data. When you like full control.
+      </p>
+
+      <div class="tile is-ancestor">
+        <div class="tile is-parent">
+          <div class="tile is-child has-background">
+            <h2 class="subtitle is-centered">Macrolog</h2>
+            <ul>
+              <li><em class="small-icon fas fa-plus"></em>Adjustable macronutrient focus</li>
+              <li><em class="small-icon fas fa-plus"></em>Able to focus on all goals</li>
+              <li><em class="small-icon fas fa-plus"></em>Clean database with only your products</li>
+              <li><em class="small-icon fas fa-plus"></em>Multiple portions for food</li>
+              <li><em class="small-icon fas fa-plus"></em>Including dishes</li>
+              <li><em class="small-icon fas fa-plus"></em>Logging takes less and less time</li>
+              <li><em class="small-icon fas fa-plus"></em>All functions are free</li>
+            </ul>
+
+            <ul>
+              <li><em class="small-icon fas fa-minus"></em>Initial filling the foodlist takes time</li>
+              <li><em class="small-icon fas fa-minus"></em>No nutritional advice</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tile is-parent">
+          <div class="tile is-child has-background">
+            <h2 class="subtitle is-centered">Most other apps</h2>
+
+            <ul>
+              <li><em class="small-icon fas fa-plus"></em>Calorie focus and traditional macronutrient ratios</li>
+              <li><em class="small-icon fas fa-plus"></em>Rich database to pick from</li>
+              <li><em class="small-icon fas fa-plus"></em>No looking up nutritional facts</li>
+              <li><em class="small-icon fas fa-plus"></em>Nutritional advice</li>
+              <li><em class="small-icon fas fa-plus"></em>Suggested recipes</li>
+            </ul>
+
+            <ul>
+              <li><em class="small-icon fas fa-minus"></em>Often focus on weightloss</li>
+              <li><em class="small-icon fas fa-minus"></em>High chance picking wrong product</li>
+              <li><em class="small-icon fas fa-minus"></em>Amount of time logging stays the same</li>
+              <li><em class="small-icon fas fa-minus"></em>Most useful functions are premium</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section five">
+    <div class="container">
+      <h1 class="title">Soon</h1>
+
+      <h2 class="subtitle">Meal plans</h2>
+      <p>We have talked about portions and meals to make logging your food intake easier. But we feel we can still make
+        an
+        extra step towards easy entering: meal plans. Macrolog will soon be able to save your weekly meal
+        plans, and add the content to your diary automatically every day. This way you only have to log the variations
+        of
+        the day.
+      </p>
+
+      <h2 class="subtitle">Bodyfat and measurements</h2>
+      <p>
+        We would like Macrolog to be a tool not just for weightloss, but for attaining any physical goal. But changing
+        your body composition isnt usually measured in weight, loss or gain. This is why we are adding more types of
+        measurements to track your progress, like body fat percentage and bodily measurements.
+      </p>
+    </div>
+  </section>
+</div>

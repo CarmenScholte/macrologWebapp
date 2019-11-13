@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { WeightService } from './weight.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ToastService } from './toast.service';
+import { AlertService } from './alert.service';
 
 describe('WeightService', () => {
 	let service: WeightService;
@@ -9,7 +9,7 @@ describe('WeightService', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
 			imports: [HttpClientTestingModule],
-			providers: [WeightService, ToastService]
+			providers: [WeightService, AlertService]
 		});
 		service = TestBed.get(WeightService);
 	});

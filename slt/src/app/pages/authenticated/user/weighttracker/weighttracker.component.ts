@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { WeightService } from '../../../../services/weight.service';
 import { Weight } from '../../../../model/weight';
-import { ToastService } from '../../../../services/toast.service';
 import * as moment from 'moment';
 import { DataPoint } from '@app/components/linegraph/linegraph.component';
+import { AlertService } from '@app/services/alert.service';
 
 @Component({
   selector: 'weighttracker',
@@ -26,7 +26,7 @@ export class WeightTrackerComponent {
   private pipe: DatePipe;
 
   constructor(private weightService: WeightService,
-    private toastService: ToastService) {
+    private alertService: AlertService) {
     this.getAllWeights();
     this.pipe = new DatePipe('en-US');
     this.init();
@@ -44,7 +44,7 @@ export class WeightTrackerComponent {
         this.getWeightDataset();
       },
       error => {
-        // TODO handle error
+        this.alertService.setAlert('Could not get weight history: ' + error.error, true);
       }
     );
   }
@@ -146,7 +146,7 @@ export class WeightTrackerComponent {
   private closeCallBack(action: string) {
     this.getAllWeights();
     this.openWeight = null;
-    this.toastService.setMessage('Your weight measurement has been ' + action);
+    this.alertService.setAlert('Your weight measurement has been ' + action, false);
   }
 
   public deleteWeight(w) {

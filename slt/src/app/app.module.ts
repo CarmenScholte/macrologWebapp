@@ -14,7 +14,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { AppComponent } from './app.component';
 import { AboutComponent } from './pages/guest/about/about.component';
 import { FoodService } from './services/food.service';
-import { ToastService } from './services/toast.service';
 import { DiaryService } from './services/diary.service';
 
 import { UserService } from './services/user.service';
@@ -25,7 +24,7 @@ import { DishService } from './services/dish.service';
 import { ActivityService } from './services/activity.service';
 import { WeightService } from './services/weight.service';
 import { AuthGuardService } from './services/auth-guard.service';
-import { GuestGuardService} from './services/guest-guard.service';
+import { GuestGuardService } from './services/guest-guard.service';
 import { ScrollBehaviourService } from './services/scroll-behaviour.service';
 import { HealthcheckService } from './services/healthcheck.service';
 import { AdminService } from './services/admin.service';
@@ -34,13 +33,16 @@ import { GoogleService } from './services/google.service';
 import { HomeComponent } from './pages/guest/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthenticatedModule } from './pages/authenticated/authenticated.module';
+import { AlertComponent } from './components/alert/alert.component';
+import { AlertService } from './services/alert.service';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		AboutComponent,
 		LoginComponent,
-		HomeComponent
+		HomeComponent,
+		AlertComponent
 	],
 	imports: [
 		BrowserModule,
@@ -62,7 +64,7 @@ import { AuthenticatedModule } from './pages/authenticated/authenticated.module'
 		FoodService,
 		DiaryService,
 		UserService,
-		ToastService,
+		AlertService,
 		DishService,
 		WeightService,
 		AuthGuardService,
@@ -70,7 +72,7 @@ import { AuthenticatedModule } from './pages/authenticated/authenticated.module'
 		ScrollBehaviourService,
 		HealthcheckService,
 		WebhookService,
-        GoogleService,
+		GoogleService,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
 	],

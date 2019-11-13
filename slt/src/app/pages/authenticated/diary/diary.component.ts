@@ -10,6 +10,7 @@ import { FoodSearchable } from '../../../model/foodSearchable';
 import { DatePipe } from '@angular/common';
 import { Dish } from '@app/model/dish';
 import { Food } from '@app/model/food';
+import { AlertService } from '@app/services/alert.service';
 
 @Component({
 	selector: 'diary-page',
@@ -54,6 +55,7 @@ export class DiaryComponent implements OnInit {
 
 	constructor(private foodService: FoodService,
 		private userService: UserService,
+		private alertService: AlertService,
 		private logService: DiaryService,
 		private activityService: ActivityService,
 		private dishService: DishService) {
@@ -135,7 +137,7 @@ export class DiaryComponent implements OnInit {
 				this.setGoalCal();
 			},
 			error => {
-				// TODO handle error
+				this.alertService.setAlert('Could not get usergoal stats: ' + error.error, true);
 			}
 		);
 	}
@@ -146,7 +148,11 @@ export class DiaryComponent implements OnInit {
 				if (result.syncedAccountId) {
 					this.activititiesSync = true; // TODO --> GET THIS TO ACTIVITIES PAGE TO ENABLE SYNC BUTTON
 				}
-			});
+			},
+			error => {
+				this.alertService.setAlert('Could not get sync settings for strava: ' + error.error, true);
+			}
+		);
 	}
 
 	private getAllFood() {
@@ -155,6 +161,9 @@ export class DiaryComponent implements OnInit {
 				this.food = data;
 				this.getAllDishes();
 			},
+			error => {
+				this.alertService.setAlert('Could not get all food: ' + error.error, true);
+			}
 		);
 	}
 
@@ -164,6 +173,9 @@ export class DiaryComponent implements OnInit {
 				this.dishes = data;
 				this.getFoodSearchableList();
 			},
+			error => {
+				this.alertService.setAlert('Could not get all dishes: ' + error.error, true);
+			}
 		);
 	}
 
@@ -189,6 +201,7 @@ export class DiaryComponent implements OnInit {
 				);
 			},
 			error => {
+				this.alertService.setAlert('Could not get all log entries: ' + error.error, true);
 				this.allLogs = new Array();
 				this.breakfastLogs = new Array();
 				this.lunchLogs = new Array();
@@ -204,6 +217,7 @@ export class DiaryComponent implements OnInit {
 			},
 			error => {
 				this.activitiesLogs = new Array();
+				this.alertService.setAlert('Could not get all activities: ' + error.error, true);
 			}
 		);
 

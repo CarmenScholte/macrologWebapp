@@ -2,7 +2,6 @@ import { LogMealComponent } from './log-meal.component';
 import { async, TestBed, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, SimpleChange } from '@angular/core';
 import { DiaryService } from '@app/services/diary.service';
-import { ToastService } from '@app/services/toast.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
 import { LogEntry } from '@app/model/logEntry';
@@ -10,6 +9,7 @@ import { Portion } from '@app/model/portion';
 import { Food } from '@app/model/food';
 import { FoodSearchable } from '@app/model/foodSearchable';
 import { StoreLogRequest } from '@app/model/storeLogRequest';
+import { AlertService } from '@app/services/alert.service';
 
 describe('LogMealComponent', () => {
     let component: LogMealComponent;
@@ -19,7 +19,7 @@ describe('LogMealComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [LogMealComponent],
-            providers: [DiaryService, ToastService],
+            providers: [DiaryService, AlertService],
             imports: [HttpClientTestingModule],
             schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
         }).compileComponents();

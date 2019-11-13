@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Ingredient } from '../../../model/ingredient';
 import { Dish } from '../../../model/dish';
 import { DishService } from '../../../services/dish.service';
+import { AlertService } from '@app/services/alert.service';
 
 @Component({
 	selector: 'app-dishes',
@@ -14,7 +15,8 @@ export class DishesComponent implements OnInit {
 	public selectedDish: Dish;
 	public modalIsVisible = false;
 
-	constructor(private dishService: DishService) { }
+	constructor(private dishService: DishService,
+		private alertService: AlertService) { }
 
 	ngOnInit() {
 		this.getAllDishes();
@@ -27,7 +29,7 @@ export class DishesComponent implements OnInit {
 				this.allDishes.sort((a, b) => a.name.localeCompare(b.name));
 			},
 			error => {
-				// TODO handle error
+				this.alertService.setAlert('Could not get all dishes: ' + error.error, true);
 			}
 		);
 	}

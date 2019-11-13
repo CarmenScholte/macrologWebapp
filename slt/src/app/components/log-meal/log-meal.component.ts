@@ -4,8 +4,8 @@ import { LogEntry } from '../../model/logEntry';
 import { StoreLogRequest } from '../../model/storeLogRequest';
 import { DiaryService } from '../../services/diary.service';
 import { FoodSearchable } from '../../model/foodSearchable';
-import { ToastService } from '../../services/toast.service';
 import { Portion } from '@app/model/portion';
+import { AlertService } from '@app/services/alert.service';
 
 @Component({
 	selector: 'log-meal',
@@ -36,7 +36,7 @@ export class LogMealComponent implements OnInit, OnChanges {
 	}
 
 	constructor(private diaryService: DiaryService,
-		private toastService: ToastService) {
+		private alertService: AlertService) {
 		this.editable = false;
 		this.pipe = new DatePipe('en-US');
 	}
@@ -127,10 +127,10 @@ export class LogMealComponent implements OnInit, OnChanges {
 						this.logEntries.push(logEntry);
 						this.updateCalculatedMacros(logEntry);
 					}
-					this.toastService.setMessage(this.meal + ' has been copied from ' + copyFrom);
+					this.alertService.setAlert(this.meal + ' has been copied from ' + copyFrom, false);
 				},
 				() => {
-					this.toastService.setMessage(this.meal + ' of ' + copyFrom + '  could not be copied');
+					this.alertService.setAlert(this.meal + ' of ' + copyFrom + '  could not be copied', true);
 				}
 			);
 		}
@@ -196,7 +196,7 @@ export class LogMealComponent implements OnInit, OnChanges {
 				const logEntry = new LogEntry();
 				logEntry.meal = this.meal.toUpperCase();
 				logEntry.food = ingredient.food;
-        logEntry.multiplier = ingredient.multiplier;
+				logEntry.multiplier = ingredient.multiplier;
 				if (ingredient.portionId) {
 					for (const portion of ingredient.food.portions) {
 						if (portion.id === ingredient.portionId) {
@@ -264,7 +264,7 @@ export class LogMealComponent implements OnInit, OnChanges {
 		if (!this.dummy) {
 			this.diaryService.storeLogEntries(allEntries, this.closeCallBack);
 		} else {
-			this.toastService.setMessage('Your meals have been saved!');
+			this.alertService.setAlert('Your meals have been saved!', false);
 		}
 	}
 }

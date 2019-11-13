@@ -6,9 +6,9 @@ import { ScrollBehaviourService } from '@app/services/scroll-behaviour.service';
 import { FoodService } from '@app/services/food.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHandler } from '@angular/common/http';
-import { ToastService } from '@app/services/toast.service';
 import { Portion } from '@app/model/portion';
 import { Macros } from '@app/model/macro';
+import { AlertService } from '@app/services/alert.service';
 
 describe('AddFoodModal', () => {
 	let component: AddFoodModalComponent;
@@ -20,7 +20,7 @@ describe('AddFoodModal', () => {
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
 			declarations: [AddFoodModalComponent],
-			providers: [ScrollBehaviourService, FoodService, HttpClient, HttpHandler, ToastService, Renderer2],
+			providers: [ScrollBehaviourService, FoodService, HttpClient, HttpHandler, AlertService, Renderer2],
 			imports: [FormsModule],
 			schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 		}).compileComponents();

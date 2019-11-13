@@ -22,10 +22,11 @@ export class GoogleService {
 			'Access-Control-Allow-Origin': environment.origin
 		};
 
-		const connectivityRequest =  new ConnectivityRequest(code);
+		const connectivityRequest = new ConnectivityRequest(code);
 		const options = { headers: headers };
 		return this.http.post<ConnectivityRequest>(this.macrologBackendUrl, connectivityRequest, options);
 	}
+
 	public sendTestMail(mailAddress: string) {
 		const headers = {
 			'Content-Type': 'application/json',

@@ -4,24 +4,23 @@ import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AccountComponent } from './account.component';
 import { AuthenticationService } from '@app/services/auth.service';
 import { throwError, of } from 'rxjs';
-
 import { FormsModule } from '@angular/forms';
-import { ToastService } from '@app/services/toast.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
+import { AlertService } from '@app/services/alert.service';
 
 describe('AccountComponent', () => {
   let component: AccountComponent;
   let fixture: ComponentFixture<AccountComponent>;
   let authService: AuthenticationService;
-  let toastService: ToastService;
+  let alertService: AlertService;
   let router: Router;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, RouterTestingModule],
       declarations: [AccountComponent],
-      providers: [AuthenticationService, ToastService, HttpClient, HttpHandler],
+      providers: [AuthenticationService, AlertService, HttpClient, HttpHandler],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
@@ -30,7 +29,7 @@ describe('AccountComponent', () => {
     fixture = TestBed.createComponent(AccountComponent);
     component = fixture.componentInstance;
     authService = TestBed.get(AuthenticationService);
-    toastService = TestBed.get(ToastService);
+    alertService = TestBed.get(AlertService);
     router = TestBed.get(Router);
   });
 
@@ -61,10 +60,10 @@ describe('AccountComponent', () => {
     expect(component.message).toEqual('Password invalid');
 
     authSpy.and.returnValue(of({ status: 200 }));
-    spyOn(toastService, 'setMessage');
+    spyOn(alertService, 'setAlert');
     component.changePassword();
     tick();
-    expect(toastService.setMessage).toHaveBeenCalledWith('Your password has changed');
+    expect(alertService.setAlert).toHaveBeenCalledWith('Your password was changed successfully!', false);
     expect(component.oldPassword).toEqual('');
     expect(component.newPassword).toEqual('');
     expect(component.confirmPassword).toEqual('');
@@ -81,7 +80,7 @@ describe('AccountComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['/']);
     expect(localStorage.getItem('currentUser')).toBeNull();
 
-    authSpy.and.returnValue(throwError({status: 401}));
+    authSpy.and.returnValue(throwError({ status: 401 }));
     localStorage.setItem('currentUser', 'user');
     component.deleteAccount();
     expect(authService.deleteAccount).toHaveBeenCalledWith('password');

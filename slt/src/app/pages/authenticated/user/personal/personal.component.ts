@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { UserService } from '../../../../services/user.service';
 import { Gender } from '../../../../model/gender';
-import { ToastService } from '../../../../services/toast.service';
 import * as moment from 'moment';
 import { UserSettings } from '@app/model/userSettings';
+import { AlertService } from '@app/services/alert.service';
 
 @Component({
 	selector: 'personal',
@@ -24,7 +24,7 @@ export class PersonalComponent {
 	public newWeight: number;
 
 	constructor(private userService: UserService,
-		private toastService: ToastService) {
+		private alertService: AlertService) {
 		this.userService.getUserSettings().subscribe(
 			result => {
 				this.originalResult = result;
@@ -37,7 +37,7 @@ export class PersonalComponent {
 				this.newWeight = this.weight;
 			},
 			error => {
-        // TODO handle error
+				this.alertService.setAlert('Could not get all user settings: ' + error.error, true);
 			}
 		);
 	}
@@ -51,8 +51,8 @@ export class PersonalComponent {
 			this.userService.addUserSetting('weight', this.weight.toString()),
 			this.userService.addUserSetting('activity', this.activity.toString())
 		).subscribe(
-			data => this.toastService.setMessage('Your data is saved!'),
-			error => console.error(error)
+			() => this.alertService.setAlert('Your data was saved succesfully!', false),
+			error => this.alertService.setAlert('Could not save data: ' + error.error, true)
 		);
 	}
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
+import { AlertService } from '@app/services/alert.service';
 
 @Component({
    selector: 'connectivity',
@@ -20,6 +21,7 @@ export class ConnectivityComponent implements OnInit {
 
    constructor(
       private userService: UserService,
+      private alertService: AlertService,
       private route: ActivatedRoute) {
    }
 
@@ -48,8 +50,8 @@ export class ConnectivityComponent implements OnInit {
                this.checkRegistrationResponse();
             }
          },
-         () => {
-            // TODO handle error
+         error => {
+            this.alertService.setAlert('Could not get all log entries: ' + error.error, true);
          }
       );
    }
@@ -71,9 +73,14 @@ export class ConnectivityComponent implements OnInit {
    }
 
    private storeConnection() {
-      this.userService.storeSyncSettings('STRAVA', this.code).subscribe(result => {
-         this.connection = result;
-      });
+      this.userService.storeSyncSettings('STRAVA', this.code).subscribe(
+         result => {
+            this.connection = result;
+         },
+         error => {
+            this.alertService.setAlert('Could not store sync settings for strava: ' + error.error, true);
+         }
+      );
    }
 
    private setStravaUrl() {

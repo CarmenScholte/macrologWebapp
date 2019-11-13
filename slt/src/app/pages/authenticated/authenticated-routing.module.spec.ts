@@ -10,7 +10,6 @@ import { HttpHandler, HttpClient } from '@angular/common/http';
 import { authenticatedRoutes } from './authenticated-routing.module';
 import { ScrollBehaviourService } from '@app/services/scroll-behaviour.service';
 import { HealthcheckService } from '@app/services/healthcheck.service';
-import { ToastService } from '@app/services/toast.service';
 import { DiaryComponent } from './diary/diary.component';
 import { FoodComponent } from './food/food.component';
 import { UserComponent } from './user/user.component';
@@ -35,6 +34,7 @@ import { DiaryService } from '@app/services/diary.service';
 import { UserService } from '@app/services/user.service';
 import { AdminService } from '@app/services/admin.service';
 import { ActivityService } from '@app/services/activity.service';
+import { AlertService } from '@app/services/alert.service';
 import { MailComponent } from './admin/mail/mail.component';
 
 describe('Router authenticated', () => {
@@ -45,7 +45,7 @@ describe('Router authenticated', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes(authenticatedRoutes), FormsModule, MatTableModule],
-      providers: [HttpClient, HttpHandler, ScrollBehaviourService, HealthcheckService, ToastService, AuthGuardService, FoodService,
+      providers: [HttpClient, HttpHandler, ScrollBehaviourService, HealthcheckService, AlertService, AuthGuardService, FoodService,
         DishService, DiaryService, UserService, AdminService, ActivityService],
       declarations: [AuthenticatedComponent, DiaryComponent, FoodComponent, UserComponent, AdminComponent, AppComponent,
         DishesComponent, GraphsComponent, OnboardingComponent, PersonalComponent, UserManagementComponent, IntakeComponent,

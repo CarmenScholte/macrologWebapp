@@ -1,25 +1,25 @@
 import { TestBed, async, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ToastService } from '@app/services/toast.service';
 import { UserService } from '@app/services/user.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ConnectivityComponent } from './connectivity.component';
 import { of } from 'rxjs';
+import { AlertService } from '@app/services/alert.service';
 
 describe('ConnectivityComponent', () => {
   let component: ConnectivityComponent;
   let fixture: ComponentFixture<ConnectivityComponent>;
-  let toastService: ToastService;
   let userService: UserService;
+  let alertService: AlertService;
   let router: Router;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([])],
       declarations: [ConnectivityComponent],
-      providers: [ToastService, UserService, HttpClient, HttpHandler],
+      providers: [AlertService, UserService, HttpClient, HttpHandler],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
@@ -27,7 +27,7 @@ describe('ConnectivityComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ConnectivityComponent);
     component = fixture.componentInstance;
-    toastService = TestBed.get(ToastService);
+    alertService = TestBed.get(AlertService);
     userService = TestBed.get(UserService);
     router = TestBed.get(Router);
   });

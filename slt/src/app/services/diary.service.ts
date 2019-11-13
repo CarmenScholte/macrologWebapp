@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StoreLogRequest } from '../model/storeLogRequest';
 import { LogEntry } from '../model/logEntry';
-import { ToastService } from './toast.service';
 import { environment } from '../../environments/environment';
 import { MacrosPerDay } from '@app/model/macrosPerDay';
+import { AlertService } from './alert.service';
 
 
 @Injectable()
@@ -13,7 +13,7 @@ export class DiaryService {
 	macrologBackendUrl = '//' + environment.backend + '/logs';
 
 	constructor(private http: HttpClient,
-		private toastService: ToastService) {
+		private alertService: AlertService) {
 	}
 
 	public getLogsForDay(date: string) {
@@ -33,11 +33,11 @@ export class DiaryService {
 		const options = { headers: headers };
 		return this.http.post<StoreLogRequest[]>(this.macrologBackendUrl + '/', storeLogEntryRequest, options).subscribe(
 			() => {
-				this.toastService.setMessage('Your meals have been saved!');
+				this.alertService.setAlert('Your meals have been saved!', false);
 				callBack();
 			},
 			error => {
-				this.toastService.setMessage('Your meals could not be saved!');
+				this.alertService.setAlert('Your meals could not be saved: ' + error.error, true);
 			});
 	}
 
@@ -49,9 +49,11 @@ export class DiaryService {
 
 		const options = { headers: headers };
 		return this.http.delete<number>(this.macrologBackendUrl + '/' + logEntry.id, options).subscribe(
-			() => { },
+			() => {
+				this.alertService.setAlert('Your entry was deleted successfully!', false);
+			},
 			error => {
-				this.toastService.setMessage('Your entry has not been deleted!');
+				this.alertService.setAlert('Your entry has not been deleted: ' + error.error, true);
 			});
 	}
 }

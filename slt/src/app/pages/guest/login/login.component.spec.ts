@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core
 import { RouterTestingModule } from '@angular/router/testing';
 import { LoginComponent } from './login.component';
 import { AuthenticationService } from '@app/services/auth.service';
-import { ToastService } from '@app/services/toast.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHandler } from '@angular/common/http';
@@ -10,18 +9,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
+import { AlertService } from '@app/services/alert.service';
 
 describe('LoginComponent', () => {
 	let component: LoginComponent;
 	let fixture: ComponentFixture<LoginComponent>;
 	let authService: AuthenticationService;
-	let toastService: ToastService;
+	let alertService: AlertService;
 	let router: Router;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
 			declarations: [LoginComponent],
-			providers: [AuthenticationService, ToastService, HttpClient, HttpHandler],
+			providers: [AuthenticationService, AlertService, HttpClient, HttpHandler],
 			imports: [FormsModule, BrowserAnimationsModule, RouterTestingModule.withRoutes([])],
 			schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 		}).compileComponents();
@@ -31,7 +31,7 @@ describe('LoginComponent', () => {
 		fixture = TestBed.createComponent(LoginComponent);
 		component = fixture.componentInstance;
 		authService = TestBed.get(AuthenticationService);
-		toastService = TestBed.get(ToastService);
+		alertService = TestBed.get(AlertService);
 		router = TestBed.get(Router);
 		fixture.detectChanges();
 	});
@@ -147,7 +147,7 @@ describe('LoginComponent', () => {
 
 	it('should reset password', fakeAsync(() => {
 		const resetSpy = spyOn(authService, 'resetPassword').and.returnValue(of({}));
-		spyOn(toastService, 'setMessage');
+		spyOn(alertService, 'setAlert');
 		component.forgotError = 'error';
 		component.forgotEmail = 'email@email.com';
 
@@ -161,7 +161,7 @@ describe('LoginComponent', () => {
 		expect(component.forgotError).toEqual('');
 		tick();
 		fixture.detectChanges();
-		expect(toastService.setMessage).toHaveBeenCalled();
+		expect(alertService.setAlert).toHaveBeenCalled();
 		expect(component.showForgotPwModal).toBeFalsy();
 
 		resetSpy.and.returnValue(throwError({ status: 404 }));

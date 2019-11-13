@@ -23,8 +23,6 @@ import { CalculateIntakeModalComponent } from '@app/components/calculate-intake-
 import { DishesComponent } from './dishes/dishes.component';
 import { GraphsComponent } from './analytics/analytics.component';
 import { DatepickerComponent } from '@app/components/datepicker/datepicker.component';
-import { ToastComponent } from '@app/components/toast/toast.component';
-import { ToastDirective } from '@app/directives/toast.directive';
 import { DateValidator } from '@app/directives/date.directive';
 import { MakeDishModalComponent } from '@app/components/make-dish-modal/make-dish-modal.component';
 import { AutocompleteFoodComponent } from '@app/components/autocomplete-food/autocomplete-food.component';
@@ -77,8 +75,6 @@ import { MatTableModule } from '@angular/material/table';
     DishesComponent,
     GraphsComponent,
     DatepickerComponent,
-    ToastComponent,
-    ToastDirective,
     DateValidator,
     MakeDishModalComponent,
     AutocompleteFoodComponent,

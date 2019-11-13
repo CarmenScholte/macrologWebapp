@@ -5,6 +5,7 @@ import { FoodSearchable } from '../../model/foodSearchable';
 import { FoodService } from '../../services/food.service';
 import { DishService } from '../../services/dish.service';
 import { Food } from '@app/model/food';
+import { AlertService } from '@app/services/alert.service';
 
 @Component({
 	selector: 'make-dish-modal',
@@ -28,6 +29,7 @@ export class MakeDishModalComponent implements OnInit {
 	private unitGrams = 100.00;
 
 	constructor(private foodService: FoodService,
+		private alertService: AlertService,
 		private dishService: DishService) {
 	}
 
@@ -44,7 +46,7 @@ export class MakeDishModalComponent implements OnInit {
 				this.getFoodSearchableList();
 			},
 			error => {
-				// TODO handle error
+				this.alertService.setAlert('Could not get all food: ' + error.error, true);
 			}
 		);
 	}

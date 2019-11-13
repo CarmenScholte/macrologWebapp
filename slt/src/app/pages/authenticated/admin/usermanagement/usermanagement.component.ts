@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '@app/services/admin.service';
 import { UserAccount } from '@app/model/userAccount';
-import { ToastService } from '@app/services/toast.service';
+import { AlertService } from '@app/services/alert.service';
 
 @Component({
   selector: 'app-usermanagement',
@@ -18,7 +18,7 @@ export class UserManagementComponent implements OnInit {
   public selectedUser: UserAccount;
 
   constructor(private adminService: AdminService,
-    private toastService: ToastService) { }
+    private alertService: AlertService) { }
 
   ngOnInit() {
     this.getAllUsers();
@@ -30,7 +30,7 @@ export class UserManagementComponent implements OnInit {
         this.allUsers = res;
       },
       err => {
-        // TODO handle error
+        this.alertService.setAlert('Could not get all users: ' + err.error, true);
       }
     );
   }
@@ -47,11 +47,11 @@ export class UserManagementComponent implements OnInit {
   public deleteUser() {
     this.adminService.deleteUser(this.selectedUser).subscribe(
       () => {
-        this.toastService.setMessage('User account successfully deleted');
+        this.alertService.setAlert('User account deleted successfully!', false);
         this.getAllUsers();
       },
-      () => {
-        this.toastService.setMessage('User account could not be deleted');
+      err => {
+        this.alertService.setAlert('Could not delete user account: ' + err.error, true);
       },
       () => {
         this.selectedUser = undefined;

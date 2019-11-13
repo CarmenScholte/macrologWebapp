@@ -4,6 +4,7 @@ import { UserService } from '../../../services/user.service';
 import * as moment from 'moment';
 import { MacrosPerDay } from '@app/model/macrosPerDay';
 import { DataPoint } from '@app/components/linegraph/linegraph.component';
+import { AlertService } from '@app/services/alert.service';
 
 
 @Component({
@@ -12,12 +13,6 @@ import { DataPoint } from '@app/components/linegraph/linegraph.component';
   styleUrls: ['./analytics.component.scss']
 })
 export class GraphsComponent implements OnInit {
-
-  constructor(
-    private logService: DiaryService,
-    private userService: UserService,
-    private ref: ChangeDetectorRef) {
-  }
 
   public measurement = 'calories';
   public measurementOption = 'total';
@@ -66,6 +61,13 @@ export class GraphsComponent implements OnInit {
   //    Total calories per day grouped by macros -- done
   //    Splitted total calories per day per macro -- done
   //    Percentage/ratio calories per macro per day (streched bars)
+
+  constructor(
+    private logService: DiaryService,
+    private userService: UserService,
+    private alertService: AlertService,
+    private ref: ChangeDetectorRef) {
+  }
 
   ngOnInit() {
     this.dateTo = new Date();
@@ -144,7 +146,7 @@ export class GraphsComponent implements OnInit {
         this.loading = false;
       },
       error => {
-        // TODO handle error
+        this.alertService.setAlert('Could not get usergoal stats: ' + error.error, true);
       }
     );
   }

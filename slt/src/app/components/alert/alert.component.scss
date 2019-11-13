@@ -1,0 +1,28 @@
+@import "../../../css/variables.scss";
+
+.alert {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background-image: linear-gradient(to right, $primary, $secondary);
+  color: $white;
+  padding: 1rem;
+  width: 16rem;
+  z-index: 36;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.95;
+}
+
+.error {
+  background-image: linear-gradient(to right, red, orange) !important;
+}
+
+.button {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 36;
+}

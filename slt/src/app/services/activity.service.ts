@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StoreActivityRequest } from '../model/storeActivityRequest';
-import { ToastService } from './toast.service';
 import { LogActivity } from '../model/logActivity';
 import { environment } from '../../environments/environment';
+import { AlertService } from './alert.service';
 
 @Injectable()
 export class ActivityService {
@@ -11,7 +11,7 @@ export class ActivityService {
 	private macrologBackendUrl = '//' + environment.backend + '/activities';
 
 	constructor(private http: HttpClient,
-		private toastService: ToastService) {
+		private alertService: AlertService) {
 	}
 
 	public getDayActivities(date: string) {
@@ -30,11 +30,11 @@ export class ActivityService {
 		const options = { headers: headers };
 		return this.http.post<StoreActivityRequest[]>(this.macrologBackendUrl + '/', storeActivityRequest, options).subscribe(
 			() => {
-				this.toastService.setMessage('Your activities have been saved!');
+				this.alertService.setAlert('Your activities have been saved succesfully!', false);
 				callBack();
 			},
 			error => {
-        // TODO handle error
+				this.alertService.setAlert('Could not save activities: ' + error.error, true);
 			});
 	}
 
@@ -46,9 +46,10 @@ export class ActivityService {
 		const options = { headers: headers };
 		return this.http.delete<number>(this.macrologBackendUrl + '/' + logActivity.id, options).subscribe(
 			() => {
+				this.alertService.setAlert('Your activity has been deleted succesfully!', false);
 			},
 			error => {
-        // TODO handle error
+				this.alertService.setAlert('Could not delete activity: ' + error.error, true);
 			});
 	}
 }

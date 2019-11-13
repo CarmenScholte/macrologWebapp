@@ -3,96 +3,9 @@
 $menuWidth: 200px;
 $menuHeight: 50px;
 
-.login-page {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+.login {
   background-image: $backgroundGradient;
-}
-
-.menu {
-  @media (min-width: $tablet) {
-    background-image: $whiteVerticalGradient;
-    width: $menuWidth;
-    height: 100%;
-  }
-  background-image: $whiteHorizontalGradient;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  height: $menuHeight;
-  z-index: 4;
-
-  &__logo {
-    @media (min-width: $tablet) {
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
-      display: block;
-      float: none;
-      font-size: 96px;
-      margin-top: 72px;
-    }
-    color: white;
-    float: left;
-    font-size: 32px;
-    font-weight: 600;
-    margin-top: 8px;
-    margin-left: 12px;
-    margin-right: 12px;
-
-    &__text {
-      line-height: 1;
-      cursor: default;
-    }
-  }
-
-  &__title {
-    @media (min-width: $tablet) {
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
-      display: block;
-      float: none;
-      margin-bottom: 64px;
-    }
-    margin-top: 14px;
-    float: left;
-    font-size: 16px;
-    color: $white;
-    cursor: default;
-  }
-
-  &__item {
-    @media (min-width: $tablet) {
-      float: none;
-      margin-top: 0;
-      text-align: center;
-      width: 100%;
-    }
-    float: right;
-    font-size: 16px;
-    width: 60px;
-    text-align: start;
-    color: white;
-    margin-top: 14px;
-    cursor: pointer;
-
-    &__text {
-      @media (min-width: $tablet) {
-        display: block;
-        padding: 15px 0;
-      }
-      display: inline;
-
-      &--active {
-        background-color: $whiteTransparentLight;
-      }
-    }
-  }
+  color: white;
 }
 
 .content {

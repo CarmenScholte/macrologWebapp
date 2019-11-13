@@ -3,16 +3,16 @@ import { UserManagementComponent } from './usermanagement.component';
 import { AdminService } from '@app/services/admin.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatTableModule } from '@angular/material';
-import { ToastService } from '@app/services/toast.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of, throwError } from 'rxjs';
 import { UserAccount } from '@app/model/userAccount';
+import { AlertService } from '@app/services/alert.service';
 
 describe('UserManagementComponent', () => {
   let component: UserManagementComponent;
   let fixture: ComponentFixture<UserManagementComponent>;
   let adminService: AdminService;
-  let toastService: ToastService;
+  let alertService: AlertService;
 
   const allUsers = [
     { userName: 'CarmenDev', email: 'c.scholte.lubberink@gmail.com', id: 1, admin: false, token: '' },
@@ -24,7 +24,7 @@ describe('UserManagementComponent', () => {
     TestBed.configureTestingModule({
       declarations: [UserManagementComponent],
       imports: [MatTableModule, HttpClientTestingModule],
-      providers: [AdminService, ToastService],
+      providers: [AdminService, AlertService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     })
       .compileComponents();
@@ -34,7 +34,7 @@ describe('UserManagementComponent', () => {
     fixture = TestBed.createComponent(UserManagementComponent);
     component = fixture.componentInstance;
     adminService = TestBed.get(AdminService);
-    toastService = TestBed.get(ToastService);
+    alertService = TestBed.get(AlertService);
     fixture.detectChanges();
   });
 
@@ -50,7 +50,7 @@ describe('UserManagementComponent', () => {
     expect(component.allUsers[0].userName).toEqual('CarmenDev');
 
     component.allUsers = undefined;
-    adminSpy.and.returnValue(throwError({status: 500}));
+    adminSpy.and.returnValue(throwError({ status: 500 }));
     component.ngOnInit();
     tick();
     fixture.detectChanges();
@@ -69,7 +69,7 @@ describe('UserManagementComponent', () => {
 
   it('should delete user', fakeAsync(() => {
     spyOn(adminService, 'deleteUser').and.returnValue(of({}));
-    spyOn(toastService, 'setMessage');
+    spyOn(alertService, 'setAlert');
     const userAccount = new UserAccount();
     userAccount.id = 123;
     component.selectedUser = userAccount;
@@ -78,12 +78,12 @@ describe('UserManagementComponent', () => {
     expect(adminService.deleteUser).toHaveBeenCalledWith(userAccount);
     tick();
     fixture.detectChanges();
-    expect(toastService.setMessage).toHaveBeenCalledWith('User account successfully deleted');
+    expect(alertService.setAlert).toHaveBeenCalledWith('User account deleted successfully!', false);
   }));
 
   it('should not delete user', fakeAsync(() => {
-    spyOn(toastService, 'setMessage');
-    spyOn(adminService, 'deleteUser').and.returnValue(throwError({status: 401}));
+    spyOn(alertService, 'setAlert');
+    spyOn(adminService, 'deleteUser').and.returnValue(throwError({ status: 401 }));
     const userAccount = new UserAccount();
     userAccount.id = 123;
     component.selectedUser = userAccount;
@@ -92,7 +92,7 @@ describe('UserManagementComponent', () => {
     expect(adminService.deleteUser).toHaveBeenCalledWith(userAccount);
     tick();
     fixture.detectChanges();
-    expect(toastService.setMessage).toHaveBeenCalledWith('User account could not be deleted');
+    expect(alertService.setAlert).toHaveBeenCalledWith('Could not delete user account: undefined', true);
   }));
 
 });

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WebhookService } from '@app/services/webhook.service';
 import { WebhookStatus } from '@app/model/webhookStatus';
+import { AlertService } from '@app/services/alert.service';
 
 @Component({
   selector: 'app-webhooks',
@@ -9,7 +10,8 @@ import { WebhookStatus } from '@app/model/webhookStatus';
 })
 export class WebhooksComponent implements OnInit {
 
-  constructor(private webhookService: WebhookService) { }
+  constructor(private webhookService: WebhookService,
+    private alertService: AlertService) { }
 
   public allWebhooks = new Array();
 
@@ -23,8 +25,8 @@ export class WebhooksComponent implements OnInit {
       () => {
         this.retrieveStatus(connectedApp);
       },
-      err => {
-        // TODO handle error
+      error => {
+        this.alertService.setAlert('Could not end webhook: ' + error.error, true);
       }
     );
   }
@@ -34,8 +36,8 @@ export class WebhooksComponent implements OnInit {
       () => {
         this.retrieveStatus(connectedApp);
       },
-      err => {
-        // TODO handle error
+      error => {
+        this.alertService.setAlert('Could not enable webhook: ' + error.error, true);
       }
     );
   }
@@ -56,8 +58,8 @@ export class WebhooksComponent implements OnInit {
       res => {
         this.allWebhooks.push({ 'connectedApp': connectedApp, 'webhook': res });
       },
-      err => {
-        // TODO handle error
+      error => {
+        this.alertService.setAlert('Could not get webhook status: ' + error.error, true);
       }
     );
   }

@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { Gender } from '../../model/gender';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { calculateTDEE } from '@app/util/functions';
+import { AlertService } from '@app/services/alert.service';
 
 @Component({
 	selector: 'calculate-intake-modal',
@@ -42,7 +43,8 @@ export class CalculateIntakeModalComponent implements OnInit {
 
 	@Output() close: EventEmitter<any> = new EventEmitter<any>();
 
-	constructor(private userService: UserService) {
+	constructor(private userService: UserService,
+		private alertService: AlertService) {
 	}
 
 	ngOnInit() {
@@ -97,7 +99,7 @@ export class CalculateIntakeModalComponent implements OnInit {
 					this.goalCarbs = Math.round(this.carbsManual).toString();
 				},
 				error => {
-					// TODO handle error
+					this.alertService.setAlert('Could not save goal intake: ' + error.error, true);
 				},
 				() => {
 					this.closeModal();
@@ -115,7 +117,7 @@ export class CalculateIntakeModalComponent implements OnInit {
 					this.goalCarbs = Math.round(this.carbs).toString();
 				},
 				error => {
-					// TODO handle error
+					this.alertService.setAlert('Could not save goal intake: ' + error.error, true);
 				},
 				() => this.closeModal()
 			);

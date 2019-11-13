@@ -1,44 +1,48 @@
 .primary {
-	color: $primary;
+  color: $primary;
 }
 
 .secondary {
-	color: $secondary;
+  color: $secondary;
 }
 
 .title-wrapper {
-	display: flex;
-	justify-content: flex-start;
+  display: flex;
+  justify-content: flex-start;
 
-	&--center {
-		justify-content: center;
-	}
+  &--center {
+    justify-content: center;
+  }
 }
 
 .strong {
-	&--primary {
-		color: $primary;
-	}
+  &--primary {
+    color: $primary;
+  }
 
-	&--secondary {
-		color: $secondary;
-	}
+  &--secondary {
+    color: $secondary;
+  }
 
-	&--warning {
-		color: $warning;
-	}
+  &--warning {
+    color: $warning;
+  }
 }
 
 .svg-wrapper {
-	width: 100px;
+  width: 100px;
 }
 
 .is-relative {
-	position: relative;
+  position: relative;
 }
 
 .is-centered {
-	justify-content: center;
-	align-items: center;
-	text-align: center;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.minh-vh {
+  min-height: 100vh;
 }

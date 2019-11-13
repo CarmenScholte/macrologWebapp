@@ -1,48 +1,63 @@
-<div class="about-page">
-	<div class="menu">
-		<div routerLink="/">
-			<div class="menu__logo">
-				<p class="menu__logo__text">M</p>
+<div class="about minh-vh">
+	<nav class="navbar is-fixed-top">
+		<div class="container container--flex">
+			<div class="navbar-brand">
+				<div class="navbar-item" routerLink="/">
+					<div class="brand-wrapper">
+						<img src="assets/logo-m.png" aria-label="M">
+					</div>
+				</div>
+
+				<a role="button" class="navbar-burger" aria-label="hamburger-menu" aria-expanded="false" (click)="toggleMenu()">
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+				</a>
 			</div>
 
-			<div class="menu__title">
-				<p>Macrolog</p>
+			<div class="navbar-mobile-menu" [ngClass]="{ 'is-visible' : menuToggle }">
+				<div class="navbar-mobile-item" routerLink="/about">About</div>
+				<div *ngIf="!isLoggedIn()" class="navbar-mobile-item" routerLink="/login">Log in</div>
+			</div>
+
+			<div class="navbar-menu">
+				<div class="navbar-start">
+					<div class="navbar-item" routerLink="/about">About</div>
+				</div>
+
+				<div class="navbar-end">
+					<div *ngIf="!isLoggedIn()" class="navbar-item">
+						<button class="button button--primary" routerLink="/login">Log in</button>
+					</div>
+				</div>
 			</div>
 		</div>
+	</nav>
 
-		<div class="menu__item">
-			<div matRipple class="menu__item__text" id="login"
-				routerLink="/login">Log in</div>
+	<section class="section">
+		<div class="container">
+			<div @enterLeaveTrigger class="content__about">
+				<h3 class="content__about__title">About Macrolog</h3>
+
+				<p>
+					Macrolog was developed by two software engineers who wanted to get in shape.
+					After using several food tracking applications we got a little tired of
+					adds and payed functions which, in our opinion, should be free. So for laughs
+					and learning we decided to take it upon ourselves to build a better app.
+				</p>
+
+				<p>
+					Macrolog heavily focusses on counting macronutrients instead of counting
+					calories. We believe that it is healthier and more effective to exactly know what you are eating.
+					This will better help you in accomplishing your pysical goals than just tracking calories.
+					Now, the concept of the "right" proportions is somewhat debatable, and what works for one person may not work
+					for
+					another. We won't pretend to know much about dieting, so during the intake a few
+					calculations and suggestions based on mainstream theory will be done. These suggestion
+					are entirely free to ignore. </p>
+
+				<p>In the end, we just want to help you measure.</p>
+			</div>
 		</div>
-
-		<div class="menu__item">
-			<div matRipple class="menu__item__text menu__item__text--active" id="about"
-				routerLink="/about">About</div>
-		</div>
-	</div>
-
-	<div class="content">
-		<div @enterLeaveTrigger class="content__about">
-			<h3 class="content__about__title">About Macrolog</h3>
-
-			<p>
-				Macrolog was developed by two software engineers who wanted to get in shape.
-				After using several food tracking applications we got a little tired of
-				adds and payed functions which, in our opinion, should be free. So for laughs
-				and learning we decided to take it upon ourselves to build a better app.
-			</p>
-
-			<p>
-				Macrolog heavily focusses on counting macronutrients instead of counting
-				calories. We believe that it is healthier and more effective to exactly know what you are eating.
-				This will better help you in accomplishing your pysical goals than just tracking calories.
-				Now, the concept of the "right" proportions is somewhat debatable, and what works for one person may not work
-				for
-				another. We won't pretend to know much about dieting, so during the intake a few
-				calculations and suggestions based on mainstream theory will be done. These suggestion
-				are entirely free to ignore. </p>
-
-			<p >In the end, we just want to help you measure.</p>
-		</div>
-	</div>
+	</section>
 </div>

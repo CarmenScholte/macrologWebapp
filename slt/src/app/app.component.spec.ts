@@ -5,7 +5,7 @@ import { HttpHandler, HttpClient } from '@angular/common/http';
 import { HealthcheckService } from './services/healthcheck.service';
 import { Router } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Renderer2 } from '@angular/core';
+import { Renderer2, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs/internal/observable/of';
 import { throwError } from 'rxjs';
 
@@ -20,6 +20,7 @@ describe('AppComponent', () => {
       imports: [RouterTestingModule.withRoutes([{ path: 'user', redirectTo: '' }]), BrowserAnimationsModule],
       declarations: [AppComponent],
       providers: [HealthcheckService, HttpClient, HttpHandler, Renderer2],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -46,14 +47,14 @@ describe('AppComponent', () => {
   }));
 
   it('should do healthcheck unauthorized', fakeAsync(() => {
-    spyOn(healthcheckService, 'checkState').and.returnValue(throwError({status: 403}));
+    spyOn(healthcheckService, 'checkState').and.returnValue(throwError({ status: 403 }));
     component.ngOnInit();
     tick();
     expect(component.isAsleep()).toEqual(false);
   }));
 
   it('should do healthcheck random error', fakeAsync(() => {
-    spyOn(healthcheckService, 'checkState').and.returnValue(throwError({status: 500}));
+    spyOn(healthcheckService, 'checkState').and.returnValue(throwError({ status: 500 }));
     component.ngOnInit();
     tick();
     expect(component.isAsleep()).toEqual(true);

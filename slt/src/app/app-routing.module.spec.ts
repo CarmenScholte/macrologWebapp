@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { TestBed, fakeAsync, tick, ComponentFixture } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { routes } from './app-routing.module';
@@ -13,8 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpHandler, HttpClient } from '@angular/common/http';
 import { ScrollBehaviourService } from './services/scroll-behaviour.service';
 import { HealthcheckService } from './services/healthcheck.service';
-import { ToastService } from './services/toast.service';
 import { GuestGuardService } from './services/guest-guard.service';
+import { AlertService } from './services/alert.service';
 
 describe('Router app', () => {
   let location: Location;
@@ -23,7 +23,7 @@ describe('Router app', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes(routes), FormsModule],
-      providers: [HttpClient, HttpHandler, ScrollBehaviourService, HealthcheckService, ToastService, GuestGuardService],
+      providers: [HttpClient, HttpHandler, ScrollBehaviourService, HealthcheckService, AlertService, GuestGuardService],
       declarations: [HomeComponent, AboutComponent, AuthenticatedComponent, LoginComponent, AppComponent],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
     });
