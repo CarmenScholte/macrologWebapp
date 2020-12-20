@@ -2,7 +2,6 @@
 
 .datepicker-wrapper {
   position: relative;
-  margin-bottom: 1rem;
 }
 
 .date {
@@ -11,6 +10,7 @@
   border-radius: 2px;
   color: $ghost;
   display: flex;
+  min-height: 2rem;
 
   &__selected-day {
     @media (min-width: $phone) {
@@ -27,6 +27,9 @@
     border-radius: 2px;
     padding: 5px;
   }
+}
+.icon {
+  margin-right: 10px;
 }
 
 .overlay {
@@ -45,7 +48,7 @@
   top: 45px;
   right: calc(50% - 160px);
   width: 300px;
-  z-index: 2;
+  z-index: 6;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 
   &__header {
@@ -55,14 +58,14 @@
     padding: 10px;
   }
 
-	&__button {
-		border-radius: 2px;
-		background-color: $primary;
-		border: none;
-		color: white;
-		font-size: 1rem;
-		padding: 5px 10px;
-	}
+  &__button {
+    border-radius: 2px;
+    background-color: $primary;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    padding: 5px 10px;
+  }
 
   &__days {
     display: flex;

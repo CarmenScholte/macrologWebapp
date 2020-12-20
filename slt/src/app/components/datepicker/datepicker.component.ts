@@ -1,13 +1,17 @@
-import { Component, OnInit, AfterViewInit, Output, Renderer2, EventEmitter, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Output, Renderer2, EventEmitter, ElementRef, ViewChildren, QueryList, Input } from '@angular/core';
 
 @Component({
 	selector: 'datepicker',
 	templateUrl: './datepicker.component.html',
 	styleUrls: ['./datepicker.component.scss']
 })
-export class DatepickerComponent implements AfterViewInit {
+export class DatepickerComponent implements AfterViewInit, OnInit {
 
 	@ViewChildren('dayRef') dayRefs: QueryList<any>;
+
+	@Input() arrows = true;
+
+	@Input() startDate: Date;
 
 	@Output() change = new EventEmitter<Date>();
 
@@ -22,7 +26,13 @@ export class DatepickerComponent implements AfterViewInit {
 
 	constructor(private renderer: Renderer2) {
 		this.today = new Date();
-		this.selectedDate = this.today;
+		this.selectedDate = new Date();
+	}
+
+	ngOnInit() {
+		if (this.startDate) {
+			this.selectedDate = this.startDate;
+		}
 		this.setDaysInMonthArray();
 		this.setWeekdays();
 		this.getWeekdayPlaceholders();
@@ -59,7 +69,7 @@ export class DatepickerComponent implements AfterViewInit {
 
 	public nextMonth() {
 		this.selectedDate = new Date(this.selectedDate.getFullYear(),
-			this.selectedDate.getMonth() + 1, this.selectedDate.getDate());
+			this.selectedDate.getMonth() + 1, 1);
 		this.setDaysInMonthArray();
 		this.getWeekdayPlaceholders();
 		this.ngAfterViewInit();
@@ -67,7 +77,7 @@ export class DatepickerComponent implements AfterViewInit {
 
 	public previousMonth() {
 		this.selectedDate = new Date(this.selectedDate.getFullYear(),
-			this.selectedDate.getMonth() - 1, this.selectedDate.getDate());
+			this.selectedDate.getMonth() - 1, 1);
 		this.setDaysInMonthArray();
 		this.getWeekdayPlaceholders();
 		this.ngAfterViewInit();

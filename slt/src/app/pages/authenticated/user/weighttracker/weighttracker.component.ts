@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { WeightService } from '../../../../services/weight.service';
 import { Weight } from '../../../../model/weight';
@@ -12,7 +12,7 @@ import { AlertService } from '@app/services/alert.service';
   styleUrls: ['./weighttracker.component.scss'],
   host: { '(document: click)': 'documentClick($event)' }
 })
-export class WeightTrackerComponent {
+export class WeightTrackerComponent implements OnInit {
 
   public trackedWeights = new Array<Weight>();
   public measurementDate: string;
@@ -23,13 +23,20 @@ export class WeightTrackerComponent {
   public dataset: DataPoint[];
   public hasOffgridValue: boolean;
 
+  public showDateInputs = false;
+  public toDate: Date;
+  public fromDate: Date;
+
   private pipe: DatePipe;
 
   constructor(private weightService: WeightService,
     private alertService: AlertService) {
-    this.getAllWeights();
     this.pipe = new DatePipe('en-US');
+  }
+
+  ngOnInit() {
     this.init();
+    this.getAllWeights();
   }
 
   private getAllWeights() {
@@ -49,8 +56,23 @@ export class WeightTrackerComponent {
     );
   }
 
-  public init() {
+  private init() {
     this.measurementDate = moment().format('DD-MM-YYYY');
+    this.toDate = new Date();
+    this.fromDate = new Date();
+    this.fromDate.setDate(this.fromDate.getDate() - 30);
+  }
+
+  public setFromDate(event: any) {
+    this.fromDate = event;
+  }
+
+  public setToDate(event: any) {
+    this.toDate = event;
+  }
+
+  public recalculateGraph() {
+    this.getWeightDataset();
   }
 
   private compare(momentA, momentB) {
@@ -65,17 +87,19 @@ export class WeightTrackerComponent {
 
   private getWeightDataset() {
     const dataset = [];
+
     let numberOfValues = 14;
     if (window.innerWidth > 480) {
       numberOfValues = 21;
     }
     if (window.innerWidth > 768) {
-      numberOfValues = 30;
+      this.showDateInputs = true;
+      numberOfValues = Math.round((this.toDate.getTime() - this.fromDate.getTime()) / 1000 / 60 / 60 / 24);
     }
-    for (let i = 0; i < numberOfValues; i++) {
-      const day = new Date();
-      day.setDate(day.getDate() - i);
 
+    for (let i = 0; i < numberOfValues; i++) {
+      const day = new Date(this.toDate);
+      day.setDate(day.getDate() - i);
       const daynumber = day.getDate();
       const weightValue = this.getWeightValueForDay(day, numberOfValues);
       const datapoint = new DataPoint(daynumber, weightValue);
@@ -135,12 +159,12 @@ export class WeightTrackerComponent {
     }
   }
 
-  private initOpenWeight(w) {
-    this.openWeight = w;
+  private initOpenWeight(weight) {
+    this.openWeight = weight;
     const date = moment(this.openWeight.day, 'YYYY-M-D', true);
     this.openWeight.dayString = this.pipe.transform(date, 'dd-MM-yyyy');
     this.openWeight.weightString = this.openWeight.weight;
-    w.editable = true;
+    weight.editable = true;
   }
 
   private closeCallBack(action: string) {
@@ -149,18 +173,18 @@ export class WeightTrackerComponent {
     this.alertService.setAlert('Your weight measurement has been ' + action, false);
   }
 
-  public deleteWeight(w) {
-    this.weightService.deleteWeight(w, () => this.closeCallBack('deleted!'));
+  public deleteWeight(weight) {
+    this.weightService.deleteWeight(weight, () => this.closeCallBack('deleted!'));
   }
 
-  public saveWeight(w) {
-    const date = moment(w.dayString, 'D-M-YYYY', true);
+  public saveWeight(weight) {
+    const date = moment(weight.dayString, 'D-M-YYYY', true);
 
     const newRequest = new Weight();
-    newRequest.id = w.id;
-    newRequest.weight = w.weightString;
+    newRequest.id = weight.id;
+    newRequest.weight = weight.weightString;
     newRequest.day = this.pipe.transform(date, 'yyyy-MM-dd');
-    newRequest.remark = w.remark;
+    newRequest.remark = weight.remark;
 
     this.weightService.storeWeight(newRequest, () => this.closeCallBack('updated!'));
   }

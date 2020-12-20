@@ -1,14 +1,16 @@
 <div class="datepicker-wrapper">
   <div class="date">
-    <button class="date__button" (click)="previousDay()">
+    <button *ngIf="arrows" class="date__button" (click)="previousDay()">
       <mat-icon>chevron_left</mat-icon>
     </button>
 
     <div class="date__selected-day" (click)="toggleOpen()">{{selectedDate | date: dateformat}}</div>
 
-    <button class="date__button" (click)="nextDay()">
+    <button *ngIf="arrows" class="date__button" (click)="nextDay()">
       <mat-icon>chevron_right</mat-icon>
     </button>
+
+    <i *ngIf="!arrows" class="icon fas fa-calendar" (click)="toggleOpen()"></i>
   </div>
 
   <div class="overlay" *ngIf="isOpen" (click)="toggleOpen()"></div>

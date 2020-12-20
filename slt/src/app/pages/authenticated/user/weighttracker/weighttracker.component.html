@@ -5,6 +5,16 @@
 		</div>
 	</div>
 
+	<div class="date-inputs" *ngIf="showDateInputs">
+		<span>From</span>
+		<datepicker [arrows]="false" [startDate]="fromDate" (change)="setFromDate($event)"></datepicker>
+
+		<span>To</span>
+		<datepicker [arrows]="false" [startDate]="toDate" (change)="setToDate($event)"></datepicker>
+
+		<button class="button button--primary" (click)="recalculateGraph()">Go!</button>
+	</div>
+
 	<form #weightForm="ngForm">
 		<div class="form-field">
 			<label class="form-field__label">Measurement date</label>

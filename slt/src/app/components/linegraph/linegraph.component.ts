@@ -57,44 +57,59 @@ export class LinegraphComponent implements AfterViewInit, OnChanges {
     let xPosition = 0;
     const xStartOffset = this.xAxisPointWidth / 2; // first data point
 
-    for (let i = 0; i < this.graphPoints.length; i++) {
-      const graphPoint = this.graphPoints[i];
-      if (graphPoint.height !== undefined) {
-        if (xPosition === 0) {
+    if (window.innerWidth > 768 && this.dataset.length > 61) {
+      // make line graph
+      for (let i = 0; i < this.graphPoints.length; i++) {
+        const graphPoint = this.graphPoints[i];
+        if (graphPoint.height !== undefined) {
           xPosition = (this.xAxisPointWidth * i) + xStartOffset;
           this.svgPath += ' L' + xPosition + ' ' + (this.yAxisHeight - graphPoint.height);
-        } else {
-          xPosition = (this.xAxisPointWidth * i) + xStartOffset;
-          const previousXPosition = (this.xAxisPointWidth * i) + xStartOffset - this.xAxisPointWidth;
-          const x1 = previousXPosition + 20;
-          let previousYPosition: number;
-          let j = i - 1;
-          while (j >= 0) {
-            if (this.graphPoints[j].height !== undefined) {
-              previousYPosition = this.yAxisHeight - this.graphPoints[j].height;
-              break;
-            }
-            j--;
-          }
-
-          const y1 = previousYPosition;
-
-          const x2 = xPosition - 20;
-          const y2 = this.yAxisHeight - graphPoint.height;
-
-          this.svgPath += ' C' + x1 + ' ' + y1 + ' ' + x2 + ' ' + y2 + ' ' + xPosition + ' ' + (this.yAxisHeight - graphPoint.height);
         }
       }
+      this.svgPath += ' L' + xPosition + ' ' + this.yAxisHeight +
+        ' L' + xStartPosition + ' ' + this.yAxisHeight + ' Z';
+    } else {
+      //make curved path
+      for (let i = 0; i < this.graphPoints.length; i++) {
+        const graphPoint = this.graphPoints[i];
+        if (graphPoint.height !== undefined) {
+          if (xPosition === 0) {
+            xPosition = (this.xAxisPointWidth * i) + xStartOffset;
+            this.svgPath += ' L' + xPosition + ' ' + (this.yAxisHeight - graphPoint.height);
+          } else {
+            xPosition = (this.xAxisPointWidth * i) + xStartOffset;
+            const previousXPosition = (this.xAxisPointWidth * i) + xStartOffset - this.xAxisPointWidth;
+            const x1 = previousXPosition + 20;
+            let previousYPosition: number;
+            let j = i - 1;
+            while (j >= 0) {
+              if (this.graphPoints[j].height !== undefined) {
+                previousYPosition = this.yAxisHeight - this.graphPoints[j].height;
+                break;
+              }
+              j--;
+            }
+
+            const y1 = previousYPosition;
+
+            const x2 = xPosition - 20;
+            const y2 = this.yAxisHeight - graphPoint.height;
+
+            // bezier curve to next data point
+            this.svgPath += ' C' + x1 + ' ' + y1 + ' ' + x2 + ' ' + y2 + ' ' + xPosition + ' ' + (this.yAxisHeight - graphPoint.height);
+          }
+        }
+      }
+      this.svgPath += ' L' + xPosition + ' ' + this.yAxisHeight +
+        ' L' + xStartPosition + ' ' + this.yAxisHeight + ' Z';
     }
-    this.svgPath += ' L' + xPosition + ' ' + this.yAxisHeight +
-      ' L' + xStartPosition + ' ' + this.yAxisHeight + ' Z';
   }
 
   calculateTrend() {
     const valueset = [];
     const convertedDataset = [];
     for (let i = 1; i <= this.dataset.length; i++) {
-      const newPoint = this.dataset[i - 1];
+      const newPoint = new DataPoint(i, this.dataset[i - 1].y);
       newPoint.x = i;
       convertedDataset.push(newPoint);
     }
